@@ -21,21 +21,23 @@ function taxonomy_field_body_class_form_alter(&$form, &$form_state, $form_id) {
  * Implements hook_preprocess_html().
  */
 function taxonomy_field_body_class_preprocess_html(&$variables) {
-  $node = menu_get_object();
-  if (is_object($node) && isset($node->nid)) {
-    $content_type_fields = field_info_instances('node', $node->type);
-    $field_class_arr = array();
-    foreach ($content_type_fields as $field) {
-      if (isset($field['as_body_class']) && $field['as_body_class']) {
-        $field_name = $field['field_name'];
-        $field_values = field_get_items('node', $node, $field_name);
-        foreach ($field_values as $term) {
-          $machine_readable = strtolower($term['taxonomy_term']->name);
-          $machine_readable = preg_replace('@[^a-z0-9_]+@', '-', $machine_readable);
-          $field_class_arr[] = $machine_readable;
+  if (!path_is_admin(current_path())) {
+    $node = menu_get_object();
+    if (is_object($node) && isset($node->nid)) {
+      $content_type_fields = field_info_instances('node', $node->type);
+      $field_class_arr = array();
+      foreach ($content_type_fields as $field) {
+        if (isset($field['as_body_class']) && $field['as_body_class']) {
+          $field_name = $field['field_name'];
+          $field_values = field_get_items('node', $node, $field_name);
+          foreach ($field_values as $term) {
+            $machine_readable = strtolower($term['taxonomy_term']->name);
+            $machine_readable = preg_replace('@[^a-z0-9_]+@', '-', $machine_readable);
+            $field_class_arr[] = $machine_readable;
+          }
         }
       }
+      $variables['classes_array'] = array_merge($variables['classes_array'], $field_class_arr);
     }
-    $variables['classes_array'] = array_merge($variables['classes_array'], $field_class_arr);
   }
 }
