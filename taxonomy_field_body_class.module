@@ -36,6 +36,6 @@ function taxonomy_field_body_class_preprocess_html(&$variables) {
         }
       }
     }
+    $variables['classes_array'] = array_merge($variables['classes_array'], $field_class_arr);
   }
-  $variables['classes_array'] = array_merge($variables['classes_array'], $field_class_arr);
 }
