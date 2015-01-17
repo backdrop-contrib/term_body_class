@@ -31,7 +31,7 @@ function taxonomy_field_body_class_preprocess_html(&$variables) {
         $field_values = field_get_items('node', $node, $field_name);
         foreach ($field_values as $term) {
           $machine_readable = strtolower($term['taxonomy_term']->name);
-          $machine_readable = preg_replace('@[^a-z0-9_]+@','-',$machine_readable);
+          $machine_readable = preg_replace('@[^a-z0-9_]+@', '-', $machine_readable);
           $field_class_arr[] = $machine_readable;
         }
       }
