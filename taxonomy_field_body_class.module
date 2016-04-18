@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Adds a class to the content page body tag with the terms the node is tagged with.
+ */
+
+/**
  * Implements hook_form_alter().
  */
 function taxonomy_field_body_class_form_alter(&$form, &$form_state, $form_id) {
