@@ -2,8 +2,7 @@
 
 /**
  * @file
- * Adds a class to the content page body tag with the terms the node is tagged
- * with.
+ * Adds a class to the content body tag with the terms the node is tagged with.
  */
 
 /**
