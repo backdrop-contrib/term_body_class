@@ -14,8 +14,8 @@ function taxonomy_field_body_class_form_alter(&$form, &$form_state, $form_id) {
       $form['instance']['as_body_class'] = array(
         '#type' => 'checkbox',
         '#title' => t('Add as body class'),
-        '#default_value' => $form['#instance']['as_body_class'],
-        '#description' => t('On enabling this, the value(s) of this field, if present will be added as class(es) to the body.'),
+        '#default_value' => isset($form['#instance']['as_body_class']) ? $form['#instance']['as_body_class'] : FALSE,
+        '#description' => t('On enabling this, the value(s) of this field, if present, will be added as class(es) to the body.'),
         '#weight' => -10,
       );
     }
