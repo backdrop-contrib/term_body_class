@@ -8,7 +8,7 @@
 /**
  * Implements hook_form_alter().
  */
-function taxonomy_field_body_class_form_alter(&$form, &$form_state, $form_id) {
+function term_body_class_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'field_ui_field_edit_form') {
     if (isset($form['#field']['type']) && $form['#field']['type'] == 'taxonomy_term_reference') {
       $form['instance']['as_body_class'] = array(
@@ -25,7 +25,7 @@ function taxonomy_field_body_class_form_alter(&$form, &$form_state, $form_id) {
 /**
  * Implements hook_preprocess_html().
  */
-function taxonomy_field_body_class_preprocess_html(&$variables) {
+function term_body_class_preprocess_html(&$variables) {
   if (!path_is_admin(current_path())) {
     $node = menu_get_object();
     if (is_object($node) && isset($node->nid)) {

@@ -1,3 +1,3 @@
-name = Taxonomy field value as body class
+name = Term body class
 description = By enabling a taxonomy field in a content type as body class, this module will add the field's value(s) as classes to the body of the content type's nodes.
 core = 7.x
