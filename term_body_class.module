@@ -27,24 +27,53 @@ function term_body_class_form_alter(&$form, &$form_state, $form_id) {
  */
 function term_body_class_preprocess_html(&$variables) {
   if (!path_is_admin(current_path())) {
-    $node = menu_get_object();
+    $field_class_arr = array();
+
+    // If node page, get the terms for the node.
+    $node = menu_get_object('node');
     if (is_object($node) && isset($node->nid)) {
-      $content_type_fields = field_info_instances('node', $node->type);
-      $field_class_arr = array();
-      foreach ($content_type_fields as $field) {
-        if (isset($field['as_body_class']) && $field['as_body_class']) {
-          $field_name = $field['field_name'];
-          $field_values = field_get_items('node', $node, $field_name);
-          if (!empty($field_values)) {
-            foreach ($field_values as $term) {
-              $machine_readable = strtolower($term['taxonomy_term']->name);
-              $machine_readable = preg_replace('@[^a-z0-9_]+@', '-', $machine_readable);
-              $field_class_arr[] = $machine_readable;
-            }
-          }
-        }
-      }
+      $field_class_arr = term_body_class_get_classes('node', $node, $node->type);
+    }
+    // If user page, get the terms for the user.
+    $user = menu_get_object('user');
+    if (is_object($user) && isset($user->uid)) {
+      $field_class_arr = term_body_class_get_classes('user', $user, 'user');
+    }
+
+    // Add the classes to the body.
+    if (!empty($field_class_arr)) {
       $variables['classes_array'] = array_merge($variables['classes_array'], $field_class_arr);
     }
   }
+}
+
+/**
+ * Returns an array of terms of an entity in their machinen name version.
+ * @param  string $type   The entity type.
+ * @param  object $entity The entity object.
+ * @param  string $bundle The bundle of the entity.
+ * @return array
+ */
+function term_body_class_get_classes($type, $entity, $bundle) {
+  // Get the fields.
+  $content_type_fields = field_info_instances($type, $bundle);
+  $field_class_arr = array();
+  foreach ($content_type_fields as $field) {
+    // For each field check if add body class is enabled.
+    if (isset($field['as_body_class']) && $field['as_body_class']) {
+      // Get all the field values.
+      $field_name = $field['field_name'];
+      $field_values = field_get_items($type, $entity, $field_name);
+      if (!empty($field_values)) {
+        // Create an array of all the terms in the machine name version.
+        foreach ($field_values as $term) {
+          // For each term get the machine readable name.
+          $machine_readable = strtolower($term['taxonomy_term']->name);
+          $machine_readable = preg_replace('@[^a-z0-9_]+@', '-', $machine_readable);
+          $field_class_arr[] = $machine_readable;
+        }
+      }
+    }
+  }
+  return $field_class_arr;
 }
