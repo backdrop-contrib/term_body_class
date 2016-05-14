@@ -49,9 +49,16 @@ function term_body_class_preprocess_html(&$variables) {
 
 /**
  * Returns an array of terms of an entity in their machinen name version.
- * @param  string $type   The entity type.
- * @param  object $entity The entity object.
- * @param  string $bundle The bundle of the entity.
+ *
+ * @param string $type
+ *   The entity type.
+ *
+ * @param object $entity
+ *   The entity object.
+ *
+ * @param string $bundle
+ *   The bundle of the entity.
+ *
  * @return array
  */
 function term_body_class_get_classes($type, $entity, $bundle) {
