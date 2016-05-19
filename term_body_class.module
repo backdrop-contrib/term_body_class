@@ -48,7 +48,7 @@ function term_body_class_preprocess_html(&$variables) {
 }
 
 /**
- * Returns an array of terms of an entity in their machinen name version.
+ * Returns an array of terms of an entity in their machine name version.
  *
  * @param string $type
  *   The entity type.
