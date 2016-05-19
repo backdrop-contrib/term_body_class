@@ -76,7 +76,7 @@ function term_body_class_get_classes($type, $entity, $bundle) {
           // For each term get the machine readable name.
           $machine_readable = strtolower($term['taxonomy_term']->name);
           $machine_readable = preg_replace('@[^a-z0-9_]+@', '-', $machine_readable);
-          $field_class_arr[] = $machine_readable;
+          $field_class_arr[] = 'tbc-' . $machine_readable;
         }
       }
     }
