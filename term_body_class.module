@@ -23,9 +23,9 @@ function term_body_class_form_field_ui_field_edit_form_alter(&$form, &$form_stat
 }
 
 /**
- * Implements hook_preprocess_html().
+ * Implements hook_preprocess_page().
  */
-function term_body_class_preprocess_html(&$variables) {
+function term_body_class_preprocess_page(&$variables) {
   if (!path_is_admin(current_path())) {
     $field_class_arr = array();
 
@@ -75,7 +75,7 @@ function term_body_class_get_classes($type, $entity, $bundle) {
         foreach ($field_values as $term) {
           // For each term get the machine readable name.
           $machine_readable = strtolower($term['taxonomy_term']->name);
-          $field_class_arr[] = drupal_html_class('tbc-' . $machine_readable);
+          $field_class_arr[] = backdrop_html_class('tbc-' . $machine_readable);
         }
       }
     }
