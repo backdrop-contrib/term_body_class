@@ -1,3 +1,13 @@
+STATUS
+------
+
+Port in progress.
+The Module is working but the repository needs some love, at least:
+
+- Add proper README.
+- Remove README.txt.
+- Add license.
+
 CONTENTS OF THIS FILE
 ---------------------
 
